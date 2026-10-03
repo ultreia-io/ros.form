@@ -1,0 +1,86 @@
+---
+title: "Getting started with ros.form"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with ros.form}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Versioned IOTC Regional Observer Scheme definitions for longline (LL) and purse-seine (PS) workbooks.
+
+## Load a form
+
+```{r}
+library(ros.form)
+model <- ros_form("ll")
+model.form::form_metadata(model)$form
+head(names(model.form::form_fields(model)))
+names(model.form::form_sheets(model))
+```
+
+The form is an ordinary named list. Sheets are keyed by worksheet name, and
+fields inside each sheet are keyed by their local name:
+
+```{r}
+names(model$sheets)
+meta <- model$sheets$META
+names(meta$fields)
+meta$fields$form_version
+```
+
+Worksheet names retain their workbook spelling. Local field names use lowercase
+snake case, and full field IDs use `<sheet>.<field>`.
+
+For table sheets, field order is column order. META fields carry their fixed
+`row` and `column` directly. A sheet's `layout` only describes its layout kind
+and table start row or optional physical extents.
+
+The only supported names are `ll` and `ps`. The supported model version is 3.3.0.
+
+Names and versions must match exactly. There is no automatic latest-version selection.
+
+## Workbook layout
+
+Models describe physical rows and columns, including fixed metadata cells and the first data row of each worksheet.
+
+They expose field types, mandatory values, constraints, and code-list requirements through model.form.
+
+Use `model.form::form_layout()` to inspect a sheet before supplying data.
+
+META declares its six columns and cell locations. Its row extent follows those cells, with extra rows allowed.
+
+Fields declared `Date` keep calendar-date semantics.
+
+The package describes workbooks; it does not read Excel files or change their values.
+
+## YAML resources
+
+Installed definitions are `ll-form.yaml` and `ps-form.yaml` under `models/3.3.0/`.
+
+Cell fields use A1 locations, such as `location: E3`; each sheet lists its layout before its fields.
+
+`required_field: power_value` names the companion field whose presence requires this value.
+
+The condition requires a value when triggered; it does not forbid one when the companion field is empty.
+
+```{r}
+system.file("models", "3.3.0", "ll-form.yaml", package = "ros.form")
+```
+
+## Development
+
+Open `ros.form.Rproj`. From this directory:
+
+```sh
+mkdir -p build
+(cd build && R CMD build --no-manual ..)
+R CMD check --no-manual --output=build build/ros.form_0.1.0.tar.gz
+Rscript tools/build-site.R
+```
+
+Install `model.form` and the development dependencies first.
+
+Archives and check results go under `build/`. Documentation and coverage go under `docs/`.
+
+The package uses GPL-3.

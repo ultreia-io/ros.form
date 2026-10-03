@@ -1,0 +1,27 @@
+url: https://ultreia-io.github.io/ros.form/
+template:
+  bootstrap: 5
+  light-switch: true
+home:
+  sidebar: false
+news:
+  cran_dates: false
+articles:
+  - title: Guides
+    contents: [ros.form]
+  - title: Development
+    contents: [articles/coverage]
+navbar:
+  structure:
+    left: [intro, reference, articles, news, coverage]
+    right: [search, lightswitch]
+  components:
+    intro:
+      text: Get started
+      href: articles/ros.form.html
+    coverage:
+      text: Coverage
+      href: articles/coverage.html
+reference:
+  - title: Public API
+    contents: [ros_form, ros_form_constants]
