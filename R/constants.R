@@ -1,7 +1,7 @@
 #' Supported ROS workbook forms
 #'
 #' `ROS_FORM_LL` and `ROS_FORM_PS` are the form identifiers accepted by
-#' [ros_form()]. `ROS_FORMS` lists both identifiers, and
+#' [`ros_form()`][ros.form.model::ros_form]. `ROS_FORMS` lists both identifiers, and
 #' `ROS_FORM_VERSIONS` lists the explicitly selectable versions.
 #' `ROS_FORM_VERSION_3_3_0`, `ROS_FORM_VERSION_4_0_0`, and
 #' `ROS_FORM_VERSION_4_1_0` name each supported version; none is a default.
