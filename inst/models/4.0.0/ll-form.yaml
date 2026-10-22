@@ -1,0 +1,389 @@
+schema_version: 1.0.0
+form: {id: ll, version: 4.0.0}
+references:
+- refs_admin.countries
+- refs_admin.entities
+- refs_admin.ports
+- refs_biology.bait_conditions
+- refs_biology.bait_types
+- refs_biology.depredation_sources
+- refs_biology.fates
+- refs_biology.fish_processing_types
+- refs_biology.handling_methods
+- refs_biology.individual_conditions
+- refs_biology.logical_responses
+- refs_biology.maturity_stages
+- refs_biology.measurement_tools
+- refs_biology.measurements
+- refs_biology.offal_management_types
+- refs_biology.sample_preservation_methods
+- refs_biology.sampling_methods_for_catch_estimation
+- refs_biology.sampling_methods_for_sampling_collection
+- refs_biology.sampling_periods
+- refs_biology.sampling_protocols
+- refs_biology.sex
+- refs_biology.species
+- refs_biology.species_baits
+- refs_biology.tag_types
+- refs_biology.types_of_fate
+- refs_biology.vessel_sections
+- refs_biology.weight_measurement_tools
+- refs_biology.weight_measurements
+- refs_data.sources_ro
+- refs_fishery.branchline_storages
+- refs_fishery.dehooker_types
+- refs_fishery.fish_preservation_methods
+- refs_fishery.fish_storage_types
+- refs_fishery.hull_material_types
+- refs_fishery.light_colours
+- refs_fishery.light_types
+- refs_fishery.line_material_types
+- refs_fishery.mitigation_devices
+- refs_fishery.reasons_days_lost
+- refs_fishery.streamer_types
+- refs_fishery.target_species
+- refs_fishery.waste_categories
+- refs_fishery.waste_disposal_methods
+- refs_fishery_config.gears
+sheets:
+  META:
+    layout: {kind: cells, column_count: 7}
+    fields:
+      form_identifier: {mandatory: true, location: D4, type: string, enum: [ROS-LL]}
+      form_revision: {mandatory: true, location: G4, type: integer, enum: [1]}
+      liaison_officer_full_name: {mandatory: true, location: D9, type: string}
+      liaison_officer_email: {mandatory: true, location: D10, type: email}
+      organisation_name: {mandatory: true, location: G9, type: string}
+      organisation_email: {location: G10, type: email}
+      finalisation_date: {mandatory: true, location: D12, type: date}
+      submission_date: {mandatory: true, location: D13, type: date}
+      reporting_year: {mandatory: true, location: D18, type: integer, minimum: 1000, maximum: 9999}
+      reporting_entity: {mandatory: true, location: D19, type: string, reference: refs_admin.entities}
+      reporting_country_code: {mandatory: true, location: D20, type: string}
+      data_source: {mandatory: true, location: D21, type: string, reference: refs_data.sources_ro}
+      # comments: {location: C26, type: string}
+  O-INFO:
+    layout: {kind: table, start_row: 5}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      observer_identification_iotc_id: {mandatory: true, type: string}
+      observer_identification_full_name: {type: string}
+      observer_trip_details_embarkation_in_port_country: {type: string, reference: refs_admin.countries}
+      observer_trip_details_embarkation_in_port_port: {type: string, reference: refs_admin.ports}
+      observer_trip_details_embarkation_at_sea_latitude: {type: latitude}
+      observer_trip_details_embarkation_at_sea_longitude: {type: longitude}
+      observer_trip_details_embarkation_date_time: {type: datetime}
+      observer_trip_details_disembarkation_in_port_country: {type: string, reference: refs_admin.countries}
+      observer_trip_details_disembarkation_in_port_port: {type: string, reference: refs_admin.ports}
+      observer_trip_details_disembarkation_at_sea_latitude: {type: latitude}
+      observer_trip_details_disembarkation_at_sea_longitude: {type: longitude}
+      observer_trip_details_disembarkation_date_time: {type: datetime}
+      observed_trip_summary_number_fishing_sets_conducted: {mandatory: true, type: integer}
+      observed_trip_summary_number_fishing_sets_observed: {mandatory: true, type: integer}
+      observed_trip_summary_number_of_days_searching: {type: number}
+      observed_trip_summary_number_of_days_actively_fishing: {type: number}
+      observed_trip_summary_number_of_days_in_fishing_area: {type: number}
+      observed_trip_summary_number_of_days_transiting: {type: number}
+      observed_trip_summary_number_of_days_lost: {type: number}
+      observed_trip_summary_reasons_for_days_lost_reason_1: {type: string, reference: refs_fishery.reasons_days_lost}
+      observed_trip_summary_reasons_for_days_lost_reason_2: {type: string, reference: refs_fishery.reasons_days_lost}
+      observed_trip_summary_reasons_for_days_lost_reason_3: {type: string, reference: refs_fishery.reasons_days_lost}
+      observed_trip_summary_reasons_for_days_lost_reason_4: {type: string, reference: refs_fishery.reasons_days_lost}
+  V-INFO:
+    layout: {kind: table, start_row: 4}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      identification_name: {mandatory: true, type: string}
+      identification_flag_or_chartering_state: {mandatory: true, type: string, reference: refs_admin.countries}
+      identification_iotc_number: {mandatory: true, type: string}
+      identification_imo_number: {type: string}
+      identification_ircs: {type: string}
+      registration_country: {type: string, reference: refs_admin.countries}
+      registration_port: {type: string, reference: refs_admin.ports}
+      registration_registration_number: {type: string}
+      licensed_target_species: {type: string, reference: refs_fishery.target_species}
+      gear_main_fishing_gear: {mandatory: true, type: string, reference: refs_fishery_config.gears}
+      personnel_fishing_master_full_name: {mandatory: true, type: string}
+      personnel_fishing_master_nationality: {mandatory: true, type: string, reference: refs_admin.countries}
+      personnel_skipper_captain_full_name: {mandatory: true, type: string}
+      personnel_skipper_captain_nationality: {mandatory: true, type: string, reference: refs_admin.countries}
+      personnel_crew_number: {type: integer}
+  V-TRIP:
+    layout: {kind: table, start_row: 4}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      vessel_departure_port_country: {type: string, reference: refs_admin.countries}
+      vessel_departure_port_port: {type: string, reference: refs_admin.ports}
+      vessel_departure_port_latitude: {type: latitude}
+      vessel_departure_port_longitude: {type: longitude}
+      vessel_departure_date_time: {type: datetime}
+      vessel_return_port_country: {type: string, reference: refs_admin.countries}
+      vessel_return_port_port: {type: string, reference: refs_admin.ports}
+      vessel_return_port_latitude: {type: latitude}
+      vessel_return_port_longitude: {type: longitude}
+      vessel_return_date_time: {type: datetime}
+  V-ATTRIBUTES:
+    layout: {kind: table, start_row: 4}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      vessel_attributes_gross_tonnage: {type: integer}
+      vessel_attributes_loa_m: {type: number}
+      vessel_attributes_hull_material: {type: string, reference: refs_fishery.hull_material_types}
+      vessel_attributes_main_engine_1_make: {type: string}
+      vessel_attributes_main_engine_1_power_value: {type: integer}
+      vessel_attributes_main_engine_1_power_unit: {type: string, required_field: vessel_attributes_main_engine_1_power_value, enum: [kW, hp, bhp]}
+      vessel_attributes_main_engine_2_make: {type: string}
+      vessel_attributes_main_engine_2_power_value: {type: integer}
+      vessel_attributes_main_engine_2_power_unit: {type: string, required_field: vessel_attributes_main_engine_2_power_value, enum: [kW, hp, bhp]}
+      vessel_attributes_fish_storage_capacity_m3: {type: number}
+      vessel_attributes_fish_preservation_methods_method_1: {type: string, reference: refs_fishery.fish_preservation_methods}
+      vessel_attributes_fish_preservation_methods_method_2: {type: string, reference: refs_fishery.fish_preservation_methods}
+      vessel_attributes_fish_preservation_methods_method_3: {type: string, reference: refs_fishery.fish_preservation_methods}
+      vessel_attributes_fish_preservation_methods_method_4: {type: string, reference: refs_fishery.fish_preservation_methods}
+      vessel_attributes_fish_storage_types_type_1: {type: string, reference: refs_fishery.fish_storage_types}
+      vessel_attributes_fish_storage_types_type_2: {type: string, reference: refs_fishery.fish_storage_types}
+      vessel_attributes_fish_storage_types_type_3: {type: string, reference: refs_fishery.fish_storage_types}
+      vessel_attributes_autonomy_range_value: {type: number}
+      vessel_attributes_autonomy_range_unit: {type: string, required_field: vessel_attributes_autonomy_range_value, enum: [days, nm]}
+      vessel_electronics_gnss: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_vms: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_ais: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_radars: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_track_plotter: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_depth_sounder: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_sonar: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_doppler_current_meter: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_xbt: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_vhf_radios: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_hf_radios: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_satcom: {type: string, reference: refs_biology.logical_responses}
+      vessel_electronics_fis: {type: string, reference: refs_biology.logical_responses}
+      waste_management_details_1_category_1: {type: string, reference: refs_fishery.waste_categories}
+      waste_management_details_1_storage_disposal_method_1: {type: string, reference: refs_fishery.waste_disposal_methods}
+      waste_management_details_2_category_2: {type: string, reference: refs_fishery.waste_categories}
+      waste_management_details_2_storage_disposal_method_2: {type: string, reference: refs_fishery.waste_disposal_methods}
+      waste_management_details_3_category_3: {type: string, reference: refs_fishery.waste_categories}
+      waste_management_details_3_storage_disposal_method_3: {type: string, reference: refs_fishery.waste_disposal_methods}
+      waste_management_details_4_category_4: {type: string, reference: refs_fishery.waste_categories}
+      waste_management_details_4_storage_disposal_method_4: {type: string, reference: refs_fishery.waste_disposal_methods}
+  G-GENERAL:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      special_equipment_or_machinery_line_setter_shooter: {mandatory: true, type: string, reference: refs_biology.logical_responses}
+      special_equipment_or_machinery_line_hauler: {mandatory: true, type: string, reference: refs_biology.logical_responses}
+      special_equipment_or_machinery_bait_casting_machine: {mandatory: true, type: string, reference: refs_biology.logical_responses}
+  G-CONFIG-BRANCHLINES:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      branchline_configurations_configuration_id: {type: string}
+      branchline_configurations_section_id: {type: string}
+      branchline_configurations_material_type: {type: string, reference: refs_fishery.line_material_types}
+      branchline_configurations_length_m: {type: number}
+      branchline_configurations_diameter_cm: {type: number}
+      additional_branchline_details_storage_1: {type: string, reference: refs_fishery.branchline_storages}
+      additional_branchline_details_storage_2: {type: string, reference: refs_fishery.branchline_storages}
+      additional_branchline_details_storage_3: {type: string, reference: refs_fishery.branchline_storages}
+      additional_branchline_details_storage_4: {type: string, reference: refs_fishery.branchline_storages}
+  G-CONFIG-MITIGATION-DEVICES:
+    layout: {kind: table, start_row: 4}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      tori_line_details_tori_line_length: {mandatory: true, type: number}
+      tori_line_details_streamer_type: {mandatory: true, type: string, reference: refs_fishery.streamer_types}
+      tori_line_details_streamer_reach_surface: {type: string, reference: refs_biology.logical_responses}
+      tori_line_details_streamer_line_length_max_m: {mandatory: true, type: number}
+      tori_line_details_streamer_line_length_min_m: {type: number}
+      tori_line_details_streamer_number_per_line: {mandatory: true, type: integer}
+      tori_line_details_distance_between_streamers_m: {type: number}
+      tori_line_details_tori_line_attached_height_m: {mandatory: true, type: number}
+      tori_line_details_towed_objects_type: {type: string}
+      tori_line_details_towed_objects_number: {type: integer}
+      other_mitigation_devices_device_1: {type: string, reference: refs_fishery.mitigation_devices}
+      other_mitigation_devices_device_2: {type: string, reference: refs_fishery.mitigation_devices}
+      other_mitigation_devices_device_3: {type: string, reference: refs_fishery.mitigation_devices}
+      other_mitigation_devices_device_4: {type: string, reference: refs_fishery.mitigation_devices}
+      other_mitigation_devices_device_5: {type: string, reference: refs_fishery.mitigation_devices}
+  E-SET:
+    layout: {kind: table, start_row: 4}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      start_setting_date_time: {mandatory: true, type: datetime}
+      start_setting_position_latitude: {mandatory: true, type: latitude}
+      start_setting_position_longitude: {mandatory: true, type: longitude}
+      end_setting_date_time: {mandatory: true, type: datetime}
+      end_setting_position_latitude: {mandatory: true, type: latitude}
+      end_setting_position_longitude: {mandatory: true, type: longitude}
+      vessel_speed_kn: {mandatory: true, type: number}
+      line_setter_speed_ms: {mandatory: true, type: number}
+      mainline_material: {type: string, reference: refs_fishery.line_material_types}
+      mainline_length_value: {type: number}
+      mainline_length_unit: {type: string, required_field: mainline_length_value, enum: [km, nm]}
+      clip_on_time_branchline: {type: number}
+      clip_on_time_buoys: {type: number}
+      number_total_hooks_set: {mandatory: true, type: integer}
+      number_total_floats_set: {type: integer}
+      number_hooks_between_floats: {mandatory: true, type: integer}
+      shark_lines_set: {mandatory: true, type: string, reference: refs_biology.logical_responses}
+      shark_lines_number: {type: integer}
+      leader_material_type: {mandatory: true, type: string, reference: refs_fishery.line_material_types}
+      leader_material_percentage: {mandatory: true, type: number}
+      branchline_length_minimum_value: {mandatory: true, type: number}
+      branchline_length_minimum_unit: {mandatory: true, type: string, required_field: branchline_length_minimum_value, enum: [m]}
+      branchline_length_maximum_value: {mandatory: true, type: number}
+      branchline_length_maximum_unit: {mandatory: true, type: string, required_field: branchline_length_maximum_value, enum: [m]}
+      target_species_species_1: {mandatory: true, type: string, reference: refs_fishery.target_species}
+      target_species_species_2: {type: string, reference: refs_fishery.target_species}
+      target_species_species_3: {type: string, reference: refs_fishery.target_species}
+      target_species_species_4: {type: string, reference: refs_fishery.target_species}
+  E-SET-LIGHTS:
+    layout: {kind: table, start_row: 2}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      type: {mandatory: true, type: string, reference: refs_fishery.light_types}
+      colour: {mandatory: true, type: string, reference: refs_fishery.light_colours}
+      number_of_lights: {mandatory: true, type: integer}
+  E-SET-MITIGATION-MEASURES:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      number_tori_lines_deployed: {mandatory: true, type: integer}
+      minimum_deck_lighting_used: {mandatory: true, type: string, reference: refs_biology.logical_responses}
+      branchline_weighted: {type: string, reference: refs_biology.logical_responses}
+      average_sinker_weight_g: {mandatory: true, type: number}
+      percent_branchline_weighted: {mandatory: true, type: number}
+      hook_sinker_distance_cm: {mandatory: true, type: number}
+      hook_pods: {mandatory: true, type: string, reference: refs_biology.logical_responses}
+      branchline_details_configuration_number: {type: string}
+      branchline_details_num_branchlines_set: {type: integer}
+      other_mitigation_measures_used_measure_1: {mandatory: true, type: string, reference: refs_fishery.mitigation_devices}
+      other_mitigation_measures_used_measure_2: {mandatory: true, type: string, reference: refs_fishery.mitigation_devices}
+      other_mitigation_measures_used_measure_3: {mandatory: true, type: string, reference: refs_fishery.mitigation_devices}
+      other_mitigation_measures_used_measure_4: {mandatory: true, type: string, reference: refs_fishery.mitigation_devices}
+  E-SET-HOOKS:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      hooks_type: {mandatory: true, type: string}
+      hooks_percentage: {type: number}
+      hooks_variations: {type: string}
+  E-SET-BAITS:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      bait_condition: {mandatory: true, type: string, reference: refs_biology.bait_conditions}
+      bait_species: {mandatory: true, type: string, reference: refs_biology.species_baits}
+      bait_percentage: {mandatory: true, type: number}
+      bait_dye_colour: {type: string}
+  E-SET-HAULING:
+    layout: {kind: table, start_row: 4}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      start_hauling_date_time: {mandatory: true, type: datetime}
+      start_hauling_position_latitude: {mandatory: true, type: latitude}
+      start_hauling_position_longitude: {mandatory: true, type: longitude}
+      end_hauling_date_time: {mandatory: true, type: datetime}
+      end_hauling_position_latitude: {mandatory: true, type: latitude}
+      end_hauling_position_longitude: {mandatory: true, type: longitude}
+      offal_management: {type: string, reference: refs_biology.offal_management_types}
+      positions_of_offal_disposal_position_1: {type: string, reference: refs_biology.vessel_sections}
+      positions_of_offal_disposal_position_2: {type: string, reference: refs_biology.vessel_sections}
+      positions_of_offal_disposal_position_3: {type: string, reference: refs_biology.vessel_sections}
+      positions_of_offal_disposal_position_4: {type: string, reference: refs_biology.vessel_sections}
+      bird_scaring_device_at_hauler: {mandatory: true, type: string, reference: refs_biology.logical_responses}
+      number_branchline_haulings_observed: {mandatory: true, type: integer}
+      number_of_hooks_retrieved_during_observation: {mandatory: true, type: integer}
+      sampling_protocol: {mandatory: true, type: string, reference: refs_biology.sampling_protocols}
+  E-SET-HAULING-BITEOFFS:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      branchline_configuration_id: {type: string}
+      branchline_number_of_biteoffs: {type: integer}
+  E-SET-CATCHES:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      catch_id: {mandatory: true, type: string}
+      species: {mandatory: true, type: string, reference: refs_biology.species}
+      fate_type: {mandatory: true, type: string, reference: refs_biology.types_of_fate}
+      fate_code: {mandatory: true, type: string, reference: refs_biology.fates}
+      sampling_method: {mandatory: true, type: string, reference: refs_biology.sampling_methods_for_catch_estimation}
+      number_of_fish: {mandatory: true, type: integer}
+      weight_processing_type: {type: string, reference: refs_biology.weight_measurements}
+      weight_value_kg: {type: number}
+      weight_estimation_method: {type: string, reference: refs_biology.weight_measurement_tools}
+  E-SET-CATCH-SPECIMENS:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      catch_id: {mandatory: true, type: string}
+      specimen_id: {mandatory: true, type: string}
+      sampling_period: {mandatory: true, type: string, reference: refs_biology.sampling_periods}
+      sampling_method: {mandatory: true, type: string, reference: refs_biology.sampling_methods_for_sampling_collection}
+      length_1_type: {mandatory: true, type: string, reference: refs_biology.measurements}
+      length_1_value_cm: {mandatory: true, type: number}
+      length_1_measuring_tool: {mandatory: true, type: string, reference: refs_biology.measurement_tools}
+      length_1_is_straight: {mandatory: true, type: string}
+      length_2_type: {type: string, required_field: length_2_value_cm, reference: refs_biology.measurements}
+      length_2_value_cm: {type: number, required_field: length_2_type}
+      length_2_measuring_tool: {type: string, reference: refs_biology.measurement_tools}
+      length_2_is_straight: {type: string}
+      weight_processing_type: {type: string, reference: refs_biology.fish_processing_types}
+      weight_value_kg: {type: number}
+      weight_estimation_method: {type: string}
+      sex: {type: string, reference: refs_biology.sex}
+      maturity_scale: {type: string}
+      maturity_stage: {type: string, reference: refs_biology.maturity_stages}
+      sample_collected_type: {type: string}
+      sample_collected_preservation_method: {type: string, reference: refs_biology.sample_preservation_methods}
+      sample_collected_destination: {type: string}
+      depredation_details_depredation_source: {type: string, reference: refs_biology.depredation_sources}
+      depredation_details_observed_predator: {type: string}
+  E-SET-CATCH-SPECIMENS-SSI:
+    layout: {kind: table, start_row: 3}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      catch_id: {mandatory: true, type: string}
+      specimen_id: {mandatory: true, type: string}
+      condition_at_capture: {mandatory: true, type: string, reference: refs_biology.individual_conditions}
+      condition_at_release: {mandatory: true, type: string, reference: refs_biology.individual_conditions}
+      gear_interaction: {mandatory: true, type: string}
+      hook_type: {type: string}
+      bait_condition: {type: string, reference: refs_biology.bait_conditions}
+      bait_type: {type: string, reference: refs_biology.bait_types}
+      leader_material: {mandatory: true, type: string}
+      leader_diameter_mm: {type: number}
+      dehooker_device: {type: string, reference: refs_fishery.dehooker_types}
+      light_attached: {type: string}
+      brought_onboard: {type: string, reference: refs_biology.logical_responses}
+      handling_method: {type: string, reference: refs_biology.handling_methods}
+      revival: {type: string, reference: refs_biology.logical_responses}
+      photo_id: {type: string}
+      depredation_details_depredation_source: {type: string, reference: refs_biology.depredation_sources}
+      depredation_details_observed_predator: {type: string}
+  E-SET-TAG-DETAILS:
+    layout: {kind: table, start_row: 2}
+    fields:
+      observed_trip_id: {mandatory: true, type: string}
+      set_id: {mandatory: true, type: string}
+      catch_id: {mandatory: true, type: string}
+      specimen_id: {mandatory: true, type: string}
+      release: {type: string, reference: refs_biology.logical_responses}
+      recovery: {type: string, reference: refs_biology.logical_responses}
+      type: {type: string, reference: refs_biology.tag_types}
+      tag_id_1: {type: string}
+      tag_id_2: {type: string}
+      finder_name: {type: string}
+      finder_contact_details: {type: string}
