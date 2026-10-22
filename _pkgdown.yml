@@ -1,0 +1,20 @@
+url: https://ultreia-io.github.io/ros.form.model/
+template:
+  bootstrap: 5
+  light-switch: true
+home:
+  sidebar: false
+news:
+  cran_dates: false
+navbar:
+  structure:
+    left: [articles, reference, news]
+    right: [search, lightswitch]
+reference:
+  - title: Public API
+    contents: [ros_form, ros_form_constants]
+articles:
+  - title: Practical guides
+    navbar: Guides
+    contents:
+      - articles/inspect-form

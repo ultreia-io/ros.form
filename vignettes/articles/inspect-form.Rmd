@@ -1,0 +1,56 @@
+---
+title: "Choose and inspect a form"
+output: html_document
+---
+
+Use this guide when you need to identify expected fields or locate a reported problem in a form.
+
+Install `ros.form.model` using the instructions on the home page. This package supplies definitions, not blank Excel forms.
+
+## Choose the gear and version
+
+Read the version from the submitted form or its accompanying documentation before choosing the model.
+
+Use `ROS_FORM_LL` for longline or `ROS_FORM_PS` for purse seine. Versions 3.3.0, 4.0.0 and 4.1.0 are distinct.
+
+```{r, eval=FALSE}
+library(ros.form.model)
+ROS_FORMS
+ROS_FORM_VERSIONS
+model <- ros_form(name = ROS_FORM_LL, version = ROS_FORM_VERSION_3_3_0)
+```
+
+If the version is unclear, ask the provider to confirm it before validating the form.
+
+## Find a sheet and its fields
+
+```{r, eval=FALSE}
+names(form.model::form_sheets(model))
+form.model::form_layout(model, id = "META")
+fields <- form.model::form_fields(model, sheet = "META")
+names(fields)
+fields[[1L]]
+```
+
+The sheet list follows model order. Field definitions show their name, type, mandatory flag and coordinates.
+
+Field identifiers combine the exact sheet name and field name: `<sheet>.<field>`.
+
+Cell layouts declare fixed coordinates. Table fields follow column order; the layout gives the starting row.
+
+## Locate a field from a report
+
+```{r, eval=FALSE}
+field <- fields[["META.liaison_officer_full_name"]]
+field$row
+field$column
+field$mandatory
+```
+
+Row and column numbers are one-based: column 1 is A, column 5 is E.
+
+Use these coordinates to inspect the original Excel form. Loading a definition does not change that form.
+
+A field may also declare allowed values or a reference list. Reference contents are supplied during validation.
+
+Continue with [ros.form.validation](https://ultreia-io.github.io/ros.form.validation/) to check a submitted form.
