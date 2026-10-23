@@ -3,7 +3,7 @@ Title: Versioned Regional Observer Scheme Forms
 Version: 0.1.0
 Authors@R:
     person("Tony", "Chemit", role = c("aut", "cre"),
-           email = "tchemit@users.noreply.github.com")
+           email = "dev@tchemit.fr")
 Description: Provides versioned Indian Ocean Tuna Commission Regional Observer
     Scheme definitions for longline and purse-seine workbooks. Exposes physical
     worksheet layouts, field declarations, and reference requirements through

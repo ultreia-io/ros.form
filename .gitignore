@@ -6,6 +6,3 @@
 **/*.tar.gz
 **/*.Rcheck/
 .idea/**/*
-
-/man/*
-!/man/.gitkeep
