@@ -2,10 +2,9 @@
 
 `develop` is the integration branch. `main` contains releases. Implementation branches use `feature/`.
 
-From the `ros.form.model` directory, with `form.model` checked out alongside it:
+Install the `form.model` version declared in `DESCRIPTION`, then load this package:
 
 ```r
-pkgload::load_all("../form.model")
 pkgload::load_all(".")
 ```
 

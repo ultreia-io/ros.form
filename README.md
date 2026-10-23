@@ -42,4 +42,11 @@ This displays the expected sheets and the META field definitions. It does not op
 
 Follow [Choose and inspect a form](https://ultreia-io.github.io/ros.form.model/articles/inspect-form.html) for gear, version and coordinate examples.
 
-Package contributors can use the [development instructions](https://github.com/ultreia-io/ros.form.model/blob/develop/DEVELOPMENT.md).
+## Further information
+
+- [Function reference](https://ultreia-io.github.io/ros.form.model/reference/index.html).
+- [Contributing](https://ultreia-io.github.io/ros.form.model/CONTRIBUTING.html) and [maintenance](https://ultreia-io.github.io/ros.form.model/DEVELOPMENT.html).
+
+## License
+
+GPL-3. See [LICENSE](https://github.com/ultreia-io/ros.form.model/blob/main/LICENSE).
