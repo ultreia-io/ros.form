@@ -2,10 +2,9 @@
 
 `develop` is the integration branch. `main` contains releases. Implementation branches use `feature/`.
 
-From the `ros.form.model` directory, with `form.model` checked out alongside it:
+Install the `form.model` version declared in `DESCRIPTION`, then load this package:
 
 ```r
-pkgload::load_all("../form.model")
 pkgload::load_all(".")
 ```
 
@@ -15,7 +14,7 @@ Use the example in the README to inspect a form.
 
 Install the package dependencies and development tools, including `roxygen2`, first.
 
-Run roxygen before building. Commit changes to `NAMESPACE`; generated `man/` files remain ignored.
+Run roxygen before building. Commit generated `man/*.Rd` files and `NAMESPACE` alongside their roxygen source changes.
 
 ```sh
 Rscript -e 'roxygen2::roxygenise()'

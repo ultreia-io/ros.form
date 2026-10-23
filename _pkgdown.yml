@@ -9,7 +9,7 @@ news:
 navbar:
   structure:
     left: [articles, reference, news]
-    right: [search, lightswitch]
+    right: [search, github, lightswitch]
 reference:
   - title: Public API
     contents: [ros_form, ros_form_constants]
@@ -18,3 +18,12 @@ articles:
     navbar: Guides
     contents:
       - articles/inspect-form
+
+footer:
+  structure:
+    left: [company, copyright, license]
+    right: built_with
+  components:
+    company: "[ultreia.io](https://ultreia.io/)"
+    copyright: "· © 2026"
+    license: "· [License: GPL-3](https://github.com/ultreia-io/ros.form.model/blob/main/LICENSE)"
