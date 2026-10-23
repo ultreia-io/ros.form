@@ -1,6 +1,6 @@
 Package: ros.form.model
 Title: Versioned Regional Observer Scheme Forms
-Version: 0.1.0
+Version: 0.1.1
 Authors@R:
     person("Tony", "Chemit", role = c("aut", "cre"),
            email = "dev@tchemit.fr")
